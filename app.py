@@ -1,21 +1,24 @@
-from flask import Flask, render_template, request
+# Import Flask module and other required libraries
+from flask import Flask, render_template
 import random
 
+# Create a Flask application instance
 app = Flask(__name__)
 
-@app.route("/")
-def home():
-    return render_template("home.html")
+# Define a route for the home page
+@app.route('/')
+def index():
+    # Render the index.html template
+    return render_template('index.html')
 
-@app.route("/roll_dice", methods=["POST"])
-def roll_dice():
-    num_dice = int(request.form["num_dice"])
-    num_sides = int(request.form["num_sides"])
-    rolls = []
-    for i in range(num_dice):
-        roll = random.randint(1, num_sides)
-        rolls.append(roll)
-    return render_template("roll_dice.html", rolls=rolls)
+# Define a route for the dice roll page
+@app.route('/dice')
+def dice():
+    # Generate a random number between 1 and 6
+    random_number = random.randint(1, 6)
+    # Render the dice.html template with the random number
+    return render_template('dice.html', random_number=random_number)
 
-if __name__ == "__main__":
+# Start the Flask application if this file is executed directly
+if __name__ == '__main__':
     app.run(debug=True)
